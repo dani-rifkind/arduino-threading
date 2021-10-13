@@ -1,0 +1,33 @@
+class Thread
+{
+public:
+Thread(int timer, void (*f)())
+{
+  delaytime = timer;
+  fun = &(*f);
+  lasttime = millis();
+}
+void Work()
+{
+  timenow = millis();
+  if(timenow - lasttime >= delaytime)
+  {
+  (*fun)();
+  
+  lasttime = millis();
+  }
+}
+void ChangeTimer(int newtime)
+{
+  delaytime = newtime;
+}
+void ChangeFunction(void (*f)())
+{
+  fun = &(*f);  
+}
+private: 
+int timenow;
+int lasttime;
+int delaytime;
+void (*fun)();
+};
